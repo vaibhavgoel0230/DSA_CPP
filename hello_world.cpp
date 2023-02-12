@@ -3,9 +3,6 @@ using namespace std;
 
 int main()
 {
-    cout << "enter No." << endl;
-    int n;
-    cin >> n;
-    cout << n << endl;
+    cout << "Hello World" << endl;
     return 0;
 }
