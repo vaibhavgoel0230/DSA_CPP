@@ -1,6 +1,8 @@
+#ifndef CURRENCY_H
+#define CURRENCY_H
+
 #include <iostream>
 using namespace std;
-
 class currency
 {
 public:
@@ -106,3 +108,5 @@ ostream &operator<<(ostream &out, const currency &x)
     out << cents;
     return out;
 }
+
+#endif
