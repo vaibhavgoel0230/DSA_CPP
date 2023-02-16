@@ -1,5 +1,5 @@
 #include <iostream>
-#include "currency.h"
+#include "new_currency.h"
 
 using namespace std;
 

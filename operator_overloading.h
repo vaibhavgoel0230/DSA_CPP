@@ -37,13 +37,13 @@ public:
         else
             return amount - getDollars() * 100;
     }
-    currency add(const currency &) const;
-    currency &increment(const currency &x)
+    currency operator+(const currency &) const;
+    currency &operator+=(const currency &x)
     {
         amount += x.amount;
         return *this;
     }
-    void output() const;
+    void output(ostream &) const;
 
 private:
     long amount;
@@ -80,7 +80,7 @@ void currency ::setValue(double theAmount)
     }
 }
 
-currency currency ::add(const currency &x) const
+currency currency ::operator+(const currency &x) const
 {
     // Add x and *this
     currency y;
@@ -88,9 +88,9 @@ currency currency ::add(const currency &x) const
     return y;
 }
 
-void currency ::output() const
+void currency ::output(ostream &out) const
 {
-    // Output currency value
+    // Insert currency value into stream out
     long theAmount = amount;
     if (theAmount < 0)
     {
@@ -103,4 +103,11 @@ void currency ::output() const
     if (cents < 10)
         cout << '0';
     cout << cents;
+}
+
+// overload <<
+ostream &operator<<(ostream &out, const currency &x)
+{
+    x.output(out);
+    return out;
 }
