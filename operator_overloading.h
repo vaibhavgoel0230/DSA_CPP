@@ -4,6 +4,7 @@ using namespace std;
 class currency
 {
 public:
+    friend istream &operator>>(istream &, currency &x);
     enum signType
     {
         plus,
@@ -44,6 +45,12 @@ public:
         return *this;
     }
     void output(ostream &) const;
+    currency operator-(const currency &) const;
+    currency operator*(double) const;
+    currency operator/(double) const;
+    currency operator%(double) const;
+    void operator=(int);
+    void operator=(double);
 
 private:
     long amount;
@@ -88,6 +95,38 @@ currency currency ::operator+(const currency &x) const
     return y;
 }
 
+currency currency::operator-(const currency &x) const
+{
+    // Subtract x and *this
+    currency y;
+    y.amount = amount - x.amount;
+    return y;
+}
+
+currency currency::operator%(const double x) const
+{
+    // x percent of *this
+    currency y;
+    y.amount = amount * (x / 100);
+    return y;
+}
+
+currency currency::operator*(const double x) const
+{
+    // Multiply x and *this
+    currency y;
+    y.amount = amount * x;
+    return y;
+}
+
+currency currency::operator/(const double x) const
+{
+    // Divide x and *this
+    currency y;
+    y.amount = amount / x;
+    return y;
+}
+
 void currency ::output(ostream &out) const
 {
     // Insert currency value into stream out
@@ -110,4 +149,54 @@ ostream &operator<<(ostream &out, const currency &x)
 {
     x.output(out);
     return out;
+}
+
+istream &operator>>(istream &in, currency &x)
+{
+    char signChar, decimal_point;
+    unsigned long dollars;
+    unsigned int cents;
+    in >> signChar >> dollars >> decimal_point >> cents;
+    // set currency value
+    if (cents > 99)
+    {
+        // too many cents
+        throw invalid_argument("Cents should be < 100.");
+    }
+    double amount = (dollars + cents * .01);
+    if (signChar == '-')
+    {
+        amount = -amount;
+    }
+
+    if (amount < 0)
+    {
+        x.amount = (long)((amount - 0.001) * 100);
+    }
+    else
+    {
+        x.amount = (long)((amount + 0.001) * 100);
+    }
+
+    return in;
+}
+
+void currency ::operator=(int x)
+{
+    if (x < 0)
+        amount = -x;
+    else
+        amount = x;
+}
+
+void currency ::operator=(double x)
+{
+    if (x < 0)
+    {
+        amount = (long)((x - 0.001) * 100);
+    }
+    else
+    {
+        amount = (long)((x + 0.001) * 100);
+    }
 }

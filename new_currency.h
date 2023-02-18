@@ -44,6 +44,11 @@ public:
         return *this;
     }
     void output() const;
+    void input();
+    currency subtract(const currency &) const;
+    currency percent(double) const;
+    currency multiply(double) const;
+    currency divide(double) const;
 
 private:
     long amount;
@@ -103,4 +108,53 @@ void currency ::output() const
     if (cents < 10)
         cout << '0';
     cout << cents;
+}
+
+void currency::input()
+{
+    char signChar, decimal_point;
+    unsigned long dollars;
+    unsigned int cents;
+    cin >> signChar >> dollars >> decimal_point >> cents;
+    // set currency value
+    if (cents > 99)
+    {
+        // too many cents
+        throw invalid_argument("Cents should be < 100.");
+    }
+    double amount = (dollars + cents * .01);
+    if (signChar == '-')
+    {
+        amount = -amount;
+    }
+
+    setValue(amount);
+}
+
+currency currency::subtract(const currency &x) const
+{
+    currency y;
+    y.amount = amount - x.amount;
+    return y;
+}
+
+currency currency::percent(double x) const
+{
+    currency y;
+    y.amount = (amount * x / 100.0);
+    return y;
+}
+
+currency currency::multiply(double x) const
+{
+    currency y;
+    y.amount = (amount * x);
+    return y;
+}
+
+currency currency::divide(double x) const
+{
+    currency y;
+    y.amount = (amount / x);
+    return y;
 }

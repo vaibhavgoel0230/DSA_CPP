@@ -9,8 +9,8 @@ int main()
 
     currency g, h(plus, 3, 50), i, j;
 
-    g.setValue(minus, 2, 25);
-    i.setValue(-6.45);
+    g = -2.25;
+    i = 140;
 
     // do an add and output
     j = h + g;
@@ -26,6 +26,21 @@ int main()
 
     cout << "Result is " << j << endl;
     cout << "Incremented object is " << i << endl;
+
+    cin >> g;
+    cout << g << endl;
+
+    // subtract g from h
+    cout << h << " - " << g << " = " << h - g << endl;
+
+    // Multiply g and h
+    cout << h << " * " << g << " = " << h * 1.50 << endl;
+
+    // Divide h with g
+    cout << h << " / " << g << " = " << h / 1.50 << endl;
+
+    // g percent of h
+    cout << h << " % " << g << " = " << h % 1.50 << endl;
 
     // test the exception
     cout << "Attempting to initialize with cents > 100" << endl;

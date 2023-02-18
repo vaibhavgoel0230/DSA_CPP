@@ -45,6 +45,40 @@ int main()
     j.output();
     cout << endl;
 
+    // Take Input
+    g.input();
+    g.output();
+
+    // calculate subtract and output
+    j = h.subtract(g);
+    h.output();
+    cout << " - ";
+    g.output();
+    cout << " = ";
+    j.output();
+    cout << endl;
+
+    // calculate percentage and output
+    j = h.percent(1.5);
+    h.output();
+    cout << " % 1.5 = ";
+    j.output();
+    cout << endl;
+
+    // calculate multiplication and output
+    j = h.multiply(1.5);
+    h.output();
+    cout << " x 1.5 = ";
+    j.output();
+    cout << endl;
+
+    // calculate division and output
+    j = h.divide(1.5);
+    h.output();
+    cout << " / 1.5 = ";
+    j.output();
+    cout << endl;
+
     // test the exception
     cout << "Attempting to initialize with cents = 152" << endl;
     try
