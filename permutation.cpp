@@ -10,11 +10,21 @@ void permutations(T list[], int m)
     // Generate all permutations of list[k:m]
     // Assume k <= m
     // output the permutations one by one
+    cout << "Prints lexically increasing permutations" << endl;
     do
     {
         copy(list, list + m, ostream_iterator<T>(cout, ""));
         cout << endl;
     } while (next_permutation(list, list + m));
+
+    reverse(list, list + m);
+
+    cout << "Prints lexically decreasing permutations" << endl;
+    do
+    {
+        copy(list, list + m, ostream_iterator<T>(cout, ""));
+        cout << endl;
+    } while (prev_permutation(list, list + m));
 }
 
 int main()
